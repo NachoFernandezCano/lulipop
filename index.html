@@ -9,75 +9,56 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-–pink-light: #fce4ec;
-–pink-mid: #f8bbd0;
-–pink-deep: #e91e8c;
-–pink-rose: #c2185b;
-–gold: #f9a8d4;
-–cream: #fff8f9;
-}
-
 body {
 font-family: ‘Lato’, sans-serif;
 background: linear-gradient(135deg, #fce4ec 0%, #fdf2f8 40%, #fce4ec 100%);
 min-height: 100vh;
 overflow-x: hidden;
-cursor: default;
 }
 
-/* Floating petals */
 .petal {
 position: fixed;
 pointer-events: none;
-font-size: 1.2rem;
-animation: fall linear infinite;
+animation: petalFall linear infinite;
 opacity: 0.6;
 z-index: 0;
 }
-@keyframes fall {
-0% { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
+@keyframes petalFall {
+0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.7; }
 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* MAIN CARD */
 .container {
 position: relative;
 z-index: 1;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: center;
+padding: 40px 20px 60px;
 min-height: 100vh;
-padding: 40px 20px;
 }
 
 .card {
-background: rgba(255,255,255,0.85);
+background: rgba(255,255,255,0.88);
 backdrop-filter: blur(12px);
 border-radius: 32px;
 border: 1.5px solid rgba(233,30,140,0.15);
-box-shadow: 0 8px 60px rgba(194,24,91,0.12), 0 2px 8px rgba(194,24,91,0.07);
+box-shadow: 0 8px 60px rgba(194,24,91,0.12);
 padding: 50px 44px 44px;
 max-width: 560px;
 width: 100%;
 text-align: center;
-animation: fadeUp 1s ease both;
-}
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(40px); }
-to { opacity: 1; transform: translateY(0); }
 }
 
 .header-emoji {
 font-size: 3rem;
 display: block;
 margin-bottom: 8px;
-animation: pulse 2s ease-in-out infinite;
+animation: heartbeat 2s ease-in-out infinite;
 }
-@keyframes pulse {
-0%, 100% { transform: scale(1); }
-50% { transform: scale(1.12); }
+@keyframes heartbeat {
+0%,100% { transform: scale(1); }
+50%      { transform: scale(1.12); }
 }
 
 h1 {
@@ -85,39 +66,38 @@ font-family: ‘Playfair Display’, serif;
 font-size: 2rem;
 color: #c2185b;
 margin-bottom: 6px;
-letter-spacing: 0.02em;
 }
 
 .subtitle {
-font-size: 0.85rem;
+font-size: 0.82rem;
 color: #f48fb1;
 letter-spacing: 0.15em;
 text-transform: uppercase;
-margin-bottom: 28px;
+margin-bottom: 24px;
 }
 
 .divider {
-width: 60px;
-height: 2px;
+width: 60px; height: 2px;
 background: linear-gradient(90deg, transparent, #e91e8c, transparent);
-margin: 0 auto 28px;
+margin: 0 auto 24px;
 border-radius: 2px;
 }
 
 .message {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.1rem;
+font-size: 1.08rem;
 line-height: 1.85;
 color: #880e4f;
 font-style: italic;
-margin-bottom: 36px;
-animation: fadeUp 1.2s ease 0.3s both;
+margin-bottom: 32px;
 }
 
-/* SECRET BUTTON */
-.secret-wrap {
+.warn-label {
+font-size: 0.75rem;
+color: #f48fb1;
+letter-spacing: 0.1em;
+text-transform: uppercase;
 margin-bottom: 10px;
-animation: fadeUp 1s ease 0.6s both;
 }
 
 .btn-secret {
@@ -134,48 +114,47 @@ box-shadow: 0 4px 20px rgba(211,47,47,0.35);
 transition: transform 0.15s, box-shadow 0.15s;
 text-transform: uppercase;
 }
-.btn-secret:hover {
-transform: scale(1.04);
-box-shadow: 0 6px 28px rgba(211,47,47,0.5);
-}
+.btn-secret:hover { transform: scale(1.04); }
 .btn-secret:active { transform: scale(0.97); }
 
-/* REVEAL SECTION */
-#reveal {
-display: none;
-margin-top: 32px;
-animation: fadeUp 0.6s ease both;
-}
-#reveal.show { display: block; }
+#reveal { display: none; margin-top: 28px; }
 
 .typing-box {
 background: linear-gradient(135deg, #fce4ec, #fdf2f8);
 border-radius: 20px;
 padding: 28px 24px;
-margin-bottom: 24px;
+margin-bottom: 20px;
 border: 1px solid rgba(233,30,140,0.15);
 }
 
 #typed-text {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.4rem;
+font-size: 1.5rem;
 color: #c2185b;
 font-weight: 700;
 min-height: 2.2rem;
 display: block;
-margin-bottom: 18px;
+margin-bottom: 20px;
 }
 
 .cursor {
 display: inline-block;
-width: 2px;
-height: 1.2em;
+width: 2px; height: 1.1em;
 background: #e91e8c;
 margin-left: 2px;
 animation: blink 0.7s step-end infinite;
 vertical-align: middle;
 }
 @keyframes blink { 50% { opacity: 0; } }
+
+.escape-warn {
+font-size: 0.72rem;
+color: #f48fb1;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+margin-bottom: 8px;
+display: block;
+}
 
 .btn-escape {
 background: white;
@@ -186,38 +165,17 @@ border-radius: 50px;
 font-size: 0.9rem;
 font-weight: 700;
 cursor: pointer;
-letter-spacing: 0.04em;
 transition: all 0.2s;
-margin: 6px;
 }
-.btn-escape:hover {
-background: #fce4ec;
-border-color: #e91e8c;
-transform: scale(1.04);
-}
+.btn-escape:hover { background: #fce4ec; border-color: #e91e8c; transform: scale(1.04); }
 
-.escape-label {
-font-size: 0.72rem;
-color: #f48fb1;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-margin-bottom: 8px;
-display: block;
-}
-
-/* OPTIONS */
-#options-section {
-display: none;
-margin-top: 10px;
-animation: fadeUp 0.6s ease both;
-}
-#options-section.show { display: block; }
+#options-section { display: none; margin-top: 8px; }
 
 .options-title {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.15rem;
+font-size: 1.1rem;
 color: #880e4f;
-margin-bottom: 16px;
+margin-bottom: 14px;
 font-style: italic;
 }
 
@@ -236,7 +194,6 @@ padding: 16px 12px;
 cursor: pointer;
 font-size: 0.88rem;
 color: #880e4f;
-font-family: ‘Lato’, sans-serif;
 font-weight: 700;
 transition: all 0.2s;
 line-height: 1.4;
@@ -249,59 +206,39 @@ box-shadow: 0 6px 20px rgba(233,30,140,0.15);
 }
 .btn-option .icon { font-size: 1.4rem; display: block; margin-bottom: 6px; }
 
-/* FINAL MESSAGE */
 #final-msg {
 display: none;
-margin-top: 24px;
+margin-top: 20px;
 padding: 24px;
 background: linear-gradient(135deg, #fce4ec, #fdf2f8);
 border-radius: 20px;
 border: 1px solid rgba(233,30,140,0.2);
-animation: fadeUp 0.6s ease both;
 }
-#final-msg.show { display: block; }
 #final-msg p {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.05rem;
+font-size: 1rem;
 color: #c2185b;
 font-style: italic;
 line-height: 1.7;
 }
+.hearts-row { font-size: 1.5rem; letter-spacing: 6px; display: block; margin-top: 10px; }
 
-.hearts-row {
-font-size: 1.5rem;
-letter-spacing: 6px;
-display: block;
-margin-top: 10px;
+.footer { margin-top: 24px; font-size: 0.78rem; color: #f48fb1; letter-spacing: 0.1em; }
+
+.heart-float {
+position: fixed;
+pointer-events: none;
+z-index: 999;
+animation: floatUp 1.6s ease forwards;
 }
-
-/* Footer */
-.footer {
-margin-top: 28px;
-font-size: 0.78rem;
-color: #f48fb1;
-letter-spacing: 0.1em;
+@keyframes floatUp {
+0%   { opacity: 1; transform: translateY(0) scale(1); }
+100% { opacity: 0; transform: translateY(-120px) scale(1.3); }
 }
 </style>
 
 </head>
 <body>
-
-<!-- Floating petals -->
-
-<script>
-  const emojis = ['🌸','🌷','💕','✨','🌺','💗'];
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (6 + Math.random() * 8) + 's';
-    p.style.animationDelay = (Math.random() * 8) + 's';
-    p.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
-    document.body.appendChild(p);
-  }
-</script>
 
 <div class="container">
   <div class="card">
@@ -320,39 +257,36 @@ letter-spacing: 0.1em;
   feliz todos los días de tu vida. 💕
 </p>
 
-<div class="secret-wrap">
-  <div style="font-size:0.75rem; color:#f48fb1; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;">⚠️ No tocar</div>
-  <button class="btn-secret" onclick="startReveal()">🚫 NO APRETAR 🚫</button>
+<div>
+  <p class="warn-label">⚠️ No tocar</p>
+  <button type="button" class="btn-secret" onclick="startReveal()">🚫 NO APRETAR 🚫</button>
 </div>
 
-<!-- REVEAL: typing game -->
 <div id="reveal">
   <div class="typing-box">
     <span id="typed-text"><span class="cursor"></span></span>
-    <div id="escape-btns"></div>
+    <div id="escape-area"></div>
   </div>
 </div>
 
-<!-- OPTIONS -->
 <div id="options-section">
   <p class="options-title">¿A dónde querés que te lleve? 🌹</p>
   <div class="options-grid">
-    <button class="btn-option" onclick="choose('Cena romántica en Nico 🕯️')">
+    <button type="button" class="btn-option" onclick="choose('Cena romántica en Nico 🕯️')">
       <span class="icon">🕯️</span>Cena romántica en Nico
     </button>
-    <button class="btn-option" onclick="choose('Cena chill en las paralelas 🍕')">
+    <button type="button" class="btn-option" onclick="choose('Cena chill en las paralelas 🍕')">
       <span class="icon">🍕</span>Cena chill en las paralelas
     </button>
-    <button class="btn-option" onclick="choose('Casino 🎰')">
+    <button type="button" class="btn-option" onclick="choose('Casino 🎰')">
       <span class="icon">🎰</span>Casino
     </button>
-    <button class="btn-option" onclick="choose('Noche de tragos y comida elaborada 🍸')">
+    <button type="button" class="btn-option" onclick="choose('Noche de tragos y comida elaborada 🍸')">
       <span class="icon">🍸</span>Tragos y comida elaborada
     </button>
   </div>
 </div>
 
-<!-- FINAL MSG -->
 <div id="final-msg">
   <p id="final-text"></p>
   <span class="hearts-row">💗🌸💗🌸💗</span>
@@ -365,93 +299,105 @@ letter-spacing: 0.1em;
 </div>
 
 <script>
-  // Typing game config
+  // Petals
+  const petalEmojis = ['🌸','🌷','💕','✨','🌺','💗'];
+  for (let i = 0; i < 16; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.fontSize = (0.8 + Math.random() * 1.1) + 'rem';
+    p.style.animationDuration = (7 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    document.body.appendChild(p);
+  }
+
+  // Typing game
   const fullText = "Te invito a una salida";
-  // Each step: how many chars of fullText to show, + button label variants
   const steps = [
-    { chars: 2,  btn: "Salir",        warn: "NO APRIETES" },
-    { chars: 5,  btn: "Cerrar",       warn: "EN SERIO NO" },
-    { chars: 8,  btn: "Escapar",      warn: "PARA YA 😤" },
-    { chars: 11, btn: "Huir",         warn: "TE LO JURO 🥺" },
-    { chars: 14, btn: "Bye",          warn: "ÚLTIMAS CHANCES" },
-    { chars: 17, btn: "Me voy",       warn: "NOOO ESPERA" },
-    { chars: 22, btn: null,           warn: null }, // full text shown → show options
+    { chars: 2,  btn: "No tocar",   warn: "NO APRIETES" },
+    { chars: 5,  btn: "Basta",  warn: "DEJA DE APRETAR" },
+    { chars: 8,  btn: "Peligroso", warn: "PARÁ AMOR" },
+    { chars: 11, btn: "NO SE TOCA",    warn: "TE VOY A HACER CAGAR A BESOS" },
+    { chars: 14, btn: "CHAU",     warn: "ÚLTIMAS CHANCES" },
+    { chars: 17, btn: "ME VOY",  warn: "NOOO PARA" },
+    { chars: 22, btn: null,      warn: null },
   ];
 
   let currentStep = 0;
   let revealed = false;
+  let typingInterval = null;
 
   function startReveal() {
     if (revealed) return;
     revealed = true;
-    document.getElementById('reveal').classList.add('show');
+    document.getElementById('reveal').style.display = 'block';
     showStep(0);
   }
 
   function showStep(index) {
     currentStep = index;
-    const step = steps[index];
-    const text = fullText.slice(0, step.chars);
-    const typedEl = document.getElementById('typed-text');
-    const escapeEl = document.getElementById('escape-btns');
+    var step = steps[index];
+    var text = fullText.slice(0, step.chars);
+    var typedEl = document.getElementById('typed-text');
+    var escapeEl = document.getElementById('escape-area');
 
-    // Animate typing char by char
+    escapeEl.innerHTML = '';
     typedEl.innerHTML = '<span class="cursor"></span>';
-    let i = 0;
-    const interval = setInterval(() => {
+
+    if (typingInterval) { clearInterval(typingInterval); typingInterval = null; }
+
+    var i = 0;
+    typingInterval = setInterval(function() {
       if (i < text.length) {
         typedEl.innerHTML = text.slice(0, i + 1) + '<span class="cursor"></span>';
         i++;
       } else {
-        clearInterval(interval);
-        // Show escape button or reveal options
+        clearInterval(typingInterval);
+        typingInterval = null;
+
         if (step.btn) {
-          escapeEl.innerHTML = `
-            <span class="escape-label">${step.warn}</span>
-            <button class="btn-escape" onclick="tryEscape()">${step.btn} →</button>
-          `;
+          escapeEl.innerHTML =
+            '<span class="escape-warn">' + step.warn + '</span>' +
+            '<button type="button" class="btn-escape" onclick="tryEscape()">→ ' + step.btn + '</button>';
         } else {
-          // Full text done — show options
-          escapeEl.innerHTML = '';
-          document.getElementById('options-section').classList.add('show');
+          document.getElementById('options-section').style.display = 'block';
         }
       }
     }, 80);
   }
 
   function tryEscape() {
-    const next = currentStep + 1;
+    var next = currentStep + 1;
     if (next < steps.length) {
-      document.getElementById('escape-btns').innerHTML = '';
       showStep(next);
     }
   }
 
   function choose(option) {
-    document.getElementById('options-section').style.opacity = '0.4';
-    document.querySelectorAll('.btn-option').forEach(b => b.disabled = true);
-    const finalEl = document.getElementById('final-msg');
+    document.querySelectorAll('.btn-option').forEach(function(b) {
+      b.disabled = true;
+      b.style.opacity = '0.5';
+    });
     document.getElementById('final-text').textContent =
-      `¡Perfecto! 🎉 "${option}" — ya tenés una cita conmigo. Te amo muchísimo y este es solo el primero de muchos planes juntos. 🌸`;
-    finalEl.classList.add('show');
-    // rain hearts
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => spawnHeart(), i * 80);
+      '¡Perfecto! 🎉 "' + option + '" — ya tenés una cita conmigo. Te amo muchísimo y este es solo el primero de muchos planes juntos. 🌸';
+    document.getElementById('final-msg').style.display = 'block';
+
+    for (var i = 0; i < 24; i++) {
+      (function() { setTimeout(spawnHeart, i * 70); })();
     }
   }
 
   function spawnHeart() {
-    const h = document.createElement('div');
-    h.style.cssText = `position:fixed;pointer-events:none;z-index:999;font-size:${1+Math.random()*1.5}rem;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation:fadeUp 1.5s ease forwards;`;
-    h.textContent = ['💗','🌸','💕','✨'][Math.floor(Math.random()*4)];
+    var h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = ['💗','🌸','💕','✨'][Math.floor(Math.random() * 4)];
+    h.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    h.style.left = (10 + Math.random() * 80) + 'vw';
+    h.style.top  = (20 + Math.random() * 60) + 'vh';
     document.body.appendChild(h);
-    setTimeout(() => h.remove(), 1600);
+    setTimeout(function() { h.remove(); }, 1700);
   }
-
-  // Add fadeUp keyframe for hearts
-  const style = document.createElement('style');
-  style.textContent = '@keyframes fadeUp{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-80px)}}';
-  document.head.appendChild(style);
 </script>
 
 </body>
